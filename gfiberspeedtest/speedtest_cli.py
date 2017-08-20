@@ -20,9 +20,8 @@ def init_virtual_display():
 
 
 def init_driver():
-    curdir = os.path.dirname(__file__)
-    chromedriverdir = os.path.join(curdir, "venv/chromedriver-Linux64")
-   
+    seldir = os.path.dirname(selenium.__file__)
+    chromedriverdir = os.path.join(seldir, "../../../../chromedriver-Linux64")
     try:
         driver = webdriver.Chrome(chromedriverdir)
     except selenium.common.exceptions.WebDriverException as e:
@@ -62,20 +61,4 @@ def scrape(driver):
         "ping": driver.find_element_by_name("ping").text
     }
     return results 
-
-
-def run_speedtest():
-    display = init_virtual_display()
-    driver = init_driver()
-    results = scrape(driver)
-    driver.quit()
-    display.stop()
-    return results
-
-
-if __name__ == "__main__":
-    print("Running speedtest")
-    result = run_speedtest()
-    result_str = "Download speed: {}Mbps \nUpload speed: {}Mbps \nPing: {}ms"
-    print(result_str.format(result["download"], result["upload"],
-                                   result["ping"]))
+    
