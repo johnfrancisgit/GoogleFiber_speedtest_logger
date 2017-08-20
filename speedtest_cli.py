@@ -1,9 +1,5 @@
 import os
 import selenium
-import docopt
-import ipdb
-
-from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -26,16 +22,9 @@ def init_virtual_display():
 def init_driver():
     curdir = os.path.dirname(__file__)
     chromedriverdir = os.path.join(curdir, "venv/chromedriver-Linux64")
-
-    chrome_options = Options()
-    # chrome_options.add_argument("--headless")
-    # chrome_options.add_argument('remote-debugging-port=9222')
-    # chrome_options.add_argument('disable-gpu')
    
     try:
-        # driver = webdriver.PhantomJS(executable_path="/usr/local/bin/phantomjs"])
-        driver = webdriver.Chrome(chromedriverdir, 
-                                  chrome_options=chrome_options)
+        driver = webdriver.Chrome(chromedriverdir)
     except selenium.common.exceptions.WebDriverException as e:
         print(e)
     return driver
@@ -52,15 +41,15 @@ def scrape(driver):
     run_test.click()
 
     WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.CLASS_NAME, 'actionButton-confirmSpeedtest'))
+        EC.element_to_be_clickable((By.CLASS_NAME,
+                                    'actionButton-confirmSpeedtest'))
     )
     # Check if we're on the Google fiber network
     try:
         cf = driver.find_element_by_class_name("actionButton-confirmSpeedtest")
         cf.click()
     except selenium.common.exceptions.NoSuchElementException:
-        # We're on the google fiber network
-        print("You're on the google fiber network") 
+        pass
 
     # Wait until the speedtest has completed
     element = WebDriverWait(driver, 60).until(
@@ -82,6 +71,7 @@ def run_speedtest():
     driver.quit()
     display.stop()
     return results
+
 
 if __name__ == "__main__":
     print("Running speedtest")
