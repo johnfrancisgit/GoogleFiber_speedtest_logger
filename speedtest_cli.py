@@ -41,7 +41,7 @@ def init_driver():
     return driver
 
 
-def run_test(driver):
+def scrape(driver):
     driver.get(GFIBER_SPEEDTEST_URL)
 
     WebDriverWait(driver, 10).until(
@@ -66,17 +66,26 @@ def run_test(driver):
     element = WebDriverWait(driver, 60).until(
         EC.text_to_be_present_in_element((By.ID, "view32"), "Done")
     )
+    
+    results = {
+        "download": driver.find_element_by_name("downloadSpeedMbps").text,
+        "upload": driver.find_element_by_name("uploadSpeedMbps").text,
+        "ping": driver.find_element_by_name("ping").text
+    }
+    return results 
 
-    download = driver.find_element_by_name("downloadSpeedMbps").text
-    upload = driver.find_element_by_name("uploadSpeedMbps").text
-    ping = driver.find_element_by_name("ping").text
-    print("Download speed: {} \nUpload speed: {} \nPing: {}".format(download,
-                                                                    upload,
-                                                                    ping))
-    driver.close()
-if __name__ == "__main__":
+
+def run_speedtest():
     display = init_virtual_display()
     driver = init_driver()
-    run_test(driver)
+    results = scrape(driver)
     driver.quit()
     display.stop()
+    return results
+
+if __name__ == "__main__":
+    print("Running speedtest")
+    result = run_speedtest()
+    result_str = "Download speed: {}Mbps \nUpload speed: {}Mbps \nPing: {}ms"
+    print(result_str.format(result["download"], result["upload"],
+                                   result["ping"]))
