@@ -1,4 +1,4 @@
-# gfiberspeedtest-cli 
+# gfiberspeedtest
 gfiberspeedtest is a very simple python package that allows you to run [Google Fiber speedtests](http://speedtest.googlefiber.net/).
 
 Speedtests can be run from either the terminal, or by importing gfiberspeedtest into your python project.
