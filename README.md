@@ -11,6 +11,7 @@ sudo apt install python3
 ```
 - Chrome
 - xvfb
+
 Most desktop distributions, like ubuntu, already include this package.
 ```bash
 sudo apt install xvfb xserver-xephyr vnc4server
