@@ -15,6 +15,12 @@ Most desktop distributions, like ubuntu, already include this package.
 sudo apt install xvfb xserver-xephyr vnc4server
 ```
 
+Installation
+------------
+```bash
+pip install gfiberspeedtest
+```
+
 Usage
 -----
 Via terminal:
