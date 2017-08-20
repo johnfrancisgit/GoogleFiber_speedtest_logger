@@ -27,13 +27,17 @@ Usage
 Via terminal:
 ```bash
 $ gfiberspeedtest
+Running speedtest
+Download speed: 41.8Mbps 
+Upload speed: 10.1Mbps 
+Ping: 116ms
 ```
 
 Using in your project:
 ```python
 from gfiberspeedtest import run
 speedtest_results = run()
-speedtes_results
+speedtest_results
 {'upload': '9.21', 'download': '44.3', 'ping': '116'}
 ```
 
