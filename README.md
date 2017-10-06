@@ -11,8 +11,6 @@ sudo apt install python3
 ```
 - Chrome
 - xvfb
-
-Most desktop distributions, like ubuntu, already include this package.
 ```bash
 sudo apt install xvfb xserver-xephyr vnc4server
 ```
@@ -36,8 +34,8 @@ Ping: 116ms
 
 Using in your project:
 ```python
-from gfiberspeedtest import run
-speedtest_results = run()
+import gfiberspeedtest
+speedtest_results = gfiberspeedtest.run()
 speedtest_results
 {'upload': '9.21', 'download': '44.3', 'ping': '116'}
 ```
